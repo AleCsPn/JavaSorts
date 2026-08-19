@@ -5,27 +5,41 @@ import java.time.LocalDate;
 
 public class App {
     private static Integer[] gerarVetorAleatorio(int n) {
-        Random random = new Random();
+        //Random random = new Random();
         Integer[] vetor = new Integer[n];
 
         for (int i = 0; i < n; i++) {
-            vetor[i] = random.nextInt(n * 10);
+        //  vetor[i] = random.nextInt(n * 10);
+            vetor[i] = (int) (Math.random() * 100);
         }
         return vetor;
     }
     public static void main(String[] args) throws Exception{
-        int n = 200000;
+        int n = 50000;
         Integer[] numeros = gerarVetorAleatorio(n);
-        BubbleSort<Integer> bubbleSort = new BubbleSort<>();
-        //System.out.println("Vetor original: "+ Arrays.toString(args));
+        Integer[] numerosBubble = numeros.clone();
+        
+        //System.out.println("Vetor gerado: "+Arrays.toString(numeros));
+        SelectionSort selectionSort = new SelectionSort<>();
+        BubbleSort bubbleSort = new BubbleSort<>();
+
         long inicio = System.currentTimeMillis();
-        bubbleSort.sort(numeros);
+        selectionSort.sort(numeros);
         long fim = System.currentTimeMillis();
-        System.out.println("Tempo = " + (fim - inicio) + " ms");
-        //System.out.println("Vetor organizado: "+ Arrays.toString(args));
 
+        System.out.println("Tempo SelectionSort = " + (fim - inicio) + " ms");
+        //System.out.println("Vetor ordenado:"+Arrays.toString(numeros));
+        System.out.println("Comparações SelectionSort: "+selectionSort.getContaComparacoes());
+        System.out.println("Trocas SelectionSort: "+selectionSort.getContaTrocas());
+        
+        long incioBS = System.currentTimeMillis();
+        bubbleSort.sort(numerosBubble);
+        long fimBS = System.currentTimeMillis();
+        System.out.println("Tempo BubbleSort = "+ (fimBS - incioBS)+" ms");
+        System.out.println("Comparações BubbleSort: "+bubbleSort.getContaComparacoes());
+        System.out.println("Trocas BubbleSort: "+bubbleSort.getContaTrocas());
     }
-
+    
     /*
      * / public static Pessoa[] vetorDePessoas() {
      * return new Pessoa[] {
@@ -57,5 +71,13 @@ public class App {
      * System.out.println(p);
      * }
      * }
-     */
+    */
+    /*   int n = 200000;
+       Integer[] numeros = gerarVetorAleatorio(n);
+       BubbleSort<Integer> bubbleSort = new BubbleSort<>();
+       //System.out.println("Vetor original: "+ Arrays.toString(args));
+
+       bubbleSort.sort(numeros);
+       //System.out.println("Vetor organizado: "+ Arrays.toString(args));
+    */  
 }

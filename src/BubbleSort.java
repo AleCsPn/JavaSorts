@@ -1,10 +1,22 @@
 import java.util.*;
 public class BubbleSort<T extends Comparable<T>> {
+    private long contaComparacoes;
+    private long contaTrocas;
+
+    public long getContaComparacoes() {
+        return contaComparacoes;
+    }
+
+
+    public long getContaTrocas() {
+        return contaTrocas;
+    }
 
     private void troca(T[] array, int i, int j) {
     T temp = array[i];
     array[i] = array[j];
     array[j] = temp;
+    contaTrocas++;
     }
 
     public T[] sort(T[] array, Comparator<T> comparator) {
@@ -15,7 +27,7 @@ public class BubbleSort<T extends Comparable<T>> {
         //'j' controla as comparações
         // 'j - fase' evita comparações desnecessárias que seriam causadas por apenas por 'fase'
         for (int j = 0; j < n - fase; j++) {
-
+            contaComparacoes++;
             if (comparator.compare(array[j], array[j + 1]) > 0){
                 troca(array,j,j+1);
             }
