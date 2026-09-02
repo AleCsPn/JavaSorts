@@ -15,7 +15,7 @@ public class App {
         return vetor;
     } 
     public static void main(String[] args) throws Exception{
-        int n = 500000;
+        int n = 150000;
         Integer[] numeros = gerarVetorAleatorio(n);
         Integer[] numerosBubble = numeros.clone();
         Integer[] numerosInsertion = numeros.clone();
@@ -24,26 +24,37 @@ public class App {
         SelectionSort selectionSort = new SelectionSort<>();
         BubbleSort bubbleSort = new BubbleSort<>();
         InsertionSort insertionSort = new InsertionSort<>();
+
+        long incioIS = System.currentTimeMillis();
+        insertionSort.sort(numerosInsertion);
+        long fimIS = System.currentTimeMillis();
+        System.out.println("Tempo InsertionSort = "+ (fimIS - incioIS)+" ms");
+        System.out.println("Comparações InsertionSort:"+insertionSort.getContaComparacoes());
+        System.out.println("Deslocamentos: "+insertionSort.getContaDeslocamentos());
+
+        System.out.println("=================================================");
+        
         long inicio = System.currentTimeMillis();
         selectionSort.sort(numeros);
         long fim = System.currentTimeMillis();
 
         System.out.println("Tempo SelectionSort = " + (fim - inicio) + " ms");
         //System.out.println("Vetor ordenado:"+Arrays.toString(numeros));
-        //System.out.println("Comparações SelectionSort: "+selectionSort.getContaComparacoes());
-        //System.out.println("Trocas SelectionSort: "+selectionSort.getContaTrocas());
+        System.out.println("Comparações SelectionSort: "+selectionSort.getContaComparacoes());
+        System.out.println("Trocas SelectionSort: "+selectionSort.getContaTrocas());
+
+                System.out.println("=================================================");
         
         long incioBS = System.currentTimeMillis();
         bubbleSort.sort(numerosBubble);
         long fimBS = System.currentTimeMillis();
         System.out.println("Tempo BubbleSort = "+ (fimBS - incioBS)+" ms");
-        //System.out.println("Comparações BubbleSort: "+bubbleSort.getContaComparacoes());
-        //System.out.println("Trocas BubbleSort: "+bubbleSort.getContaTrocas());
+        System.out.println("Comparações BubbleSort: "+bubbleSort.getContaComparacoes());
+        System.out.println("Trocas BubbleSort: "+bubbleSort.getContaTrocas());
         
-        long incioIS = System.currentTimeMillis();
-        insertionSort.sort(numerosInsertion);
-        long fimIS = System.currentTimeMillis();
-        System.out.println("Tempo InsertionSort = "+ (fimIS - incioIS)+" ms");
+        System.out.println("=================================================");
+
+
     }
     
     /*

@@ -1,15 +1,44 @@
-public class InsertionSort <T extends Comparable<T>>{
-    public T[] sort(T[] array){
-        for(int i = 1; i<array.length;i++){
-            T valorAtual = array[i];
+import java.util.Comparator;
 
-            int j = i - 1;
-            while(j>=0 && array[j].compareTo(valorAtual) > 0){
-                array[j+1] = array[j];
-                j--;
-            }
-            array[j + 1] = valorAtual;
+public class InsertionSort <T extends Comparable<T>>{
+    private long contaComparacoes;
+    private long contaDeslocamentos;
+
+    public long getContaComparacoes(){
+        return contaComparacoes;
+    }
+
+    public long getContaDeslocamentos(){
+        return contaDeslocamentos;
+    }
+    
+    private void insert (T[] v, int i, Comparator<T> comparador){
+        T eleito = v[i] ;
+        int indiceComparacao = i - 1; 
+
+        while(indiceComparacao>=0 && comparador.compare(eleito, v[indiceComparacao]) < 0){
+            this.contaComparacoes++;
+            this.contaDeslocamentos++;
+
+            v[indiceComparacao+1] = v[indiceComparacao];
+            indiceComparacao--;
+        }
+        if(indiceComparacao >= 0)
+            this.contaComparacoes++;
+        v[indiceComparacao +1] = eleito;
+    }
+
+    
+    public T[] sort(T[] array, Comparator<T> comparador){
+        this.contaComparacoes = 0;
+        this.contaDeslocamentos = 0;
+
+        for(int i = 1; i<array.length;i++){
+            insert(array, i, comparador);
         }
         return array;
+    }
+    public T[] sort(T[] array) {
+        return sort(array, (a, b) -> ((Comparable<T>) a).compareTo(b));
     }
 }
