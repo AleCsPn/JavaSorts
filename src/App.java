@@ -14,46 +14,45 @@ public class App {
         }
         return vetor;
     } 
-    public static void main(String[] args) throws Exception{
-        int n = 150000;
-        Integer[] numeros = gerarVetorAleatorio(n);
-        Integer[] numerosBubble = numeros.clone();
-        Integer[] numerosInsertion = numeros.clone();
-        
-        //System.out.println("Vetor gerado: "+Arrays.toString(numeros));
-        SelectionSort selectionSort = new SelectionSort<>();
-        BubbleSort bubbleSort = new BubbleSort<>();
-        InsertionSort insertionSort = new InsertionSort<>();
+    public static void main(String[] args) {
+        int n = 50000;
+        long inicio, fim, tempo;
+        Integer[] numerosQuickSort = gerarVetorAleatorio(n);
 
-        long incioIS = System.currentTimeMillis();
-        insertionSort.sort(numerosInsertion);
-        long fimIS = System.currentTimeMillis();
-        System.out.println("Tempo InsertionSort = "+ (fimIS - incioIS)+" ms");
-        System.out.println("Comparações InsertionSort:"+insertionSort.getContaComparacoes());
-        System.out.println("Deslocamentos: "+insertionSort.getContaDeslocamentos());
+        System.out.println("Vetor gerado:"+ Arrays.toString(numerosQuickSort));
+        QuickSort<Integer> quickSort = new QuickSort<>();
+        System.out.println("\n *** Quick Sort ***");
+        inicio = System.currentTimeMillis();
+        quickSort.sort(numerosQuickSort);
+        fim = System.currentTimeMillis();
+        tempo = fim - inicio;
+        //System.out.println("Vetor ordenado:"+ Arrays.toString(numerosQuickSort));
+        System.out.println("Comparacoes QuickSort:"+quickSort.getContaComparacoes());
+        System.out.println("Trocas QuickSort:"+quickSort.getContaTrocas());
+        System.out.println("Tempo(ms) do QuickSort:"+tempo+" ms");
 
-        System.out.println("=================================================");
-        
-        long inicio = System.currentTimeMillis();
-        selectionSort.sort(numeros);
-        long fim = System.currentTimeMillis();
+        Busca<Integer> busca = new Busca<>();
+        int valExiste = numerosQuickSort[n/2];
+        int valInexistente = 150;
+        System.out.println("Busca Linear ");
+        int pos = busca.linear(numerosQuickSort, valExiste);
+        System.out.println("Valor: "+valExiste+" posicao "+pos);
+        System.out.println("Comparacoes:"+ busca.getContaComparacoes());
 
-        System.out.println("Tempo SelectionSort = " + (fim - inicio) + " ms");
-        //System.out.println("Vetor ordenado:"+Arrays.toString(numeros));
-        System.out.println("Comparações SelectionSort: "+selectionSort.getContaComparacoes());
-        System.out.println("Trocas SelectionSort: "+selectionSort.getContaTrocas());
+        System.out.println("Busca Linear - inexistente");
+        pos = busca.linear(numerosQuickSort, valInexistente);
+        System.out.println("Valor: "+valInexistente+" posicao "+pos);
+        System.out.println("Comparacoes:"+ busca.getContaComparacoes());
 
-                System.out.println("=================================================");
-        
-        long incioBS = System.currentTimeMillis();
-        bubbleSort.sort(numerosBubble);
-        long fimBS = System.currentTimeMillis();
-        System.out.println("Tempo BubbleSort = "+ (fimBS - incioBS)+" ms");
-        System.out.println("Comparações BubbleSort: "+bubbleSort.getContaComparacoes());
-        System.out.println("Trocas BubbleSort: "+bubbleSort.getContaTrocas());
-        
-        System.out.println("=================================================");
+        System.out.println("Busca Binaria");
+        pos = busca.binaria(numerosQuickSort, valExiste);
+        System.out.println("Valor "+ valExiste + " posicao:"+pos);
+        System.out.println("Comparacoes:"+ busca.getContaComparacoes());   
 
+        System.out.println("Busca Binaria  - Inexistente");
+        pos = busca.binaria(numerosQuickSort, valInexistente);
+        System.out.println("Valor "+ valInexistente + " posicao:"+pos);
+        System.out.println("Comparacoes:"+ busca.getContaComparacoes());
 
     }
     
